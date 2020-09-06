@@ -1,0 +1,23 @@
+version: "3"
+
+networks:
+  gitea:
+    external: false
+
+services:
+  server:
+    image: gitea/gitea:1.11.4
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: always
+    networks:
+      - gitea
+    volumes:
+      - data-volume:/data
+      - ./data/gitea/conf:/data/gitea/conf:ro
+    ports:
+      - "4433:3000"
+      - "2222:22"
+volumes:
+  data-volume:
